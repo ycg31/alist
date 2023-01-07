@@ -1,0 +1,8 @@
+#!/bin/sh
+set -e
+
+newtoken=$1
+sqlite3 /opt/alist/data/data.db <<EOF
+update x_storages set addition = json_replace(addition, '$.refresh_token', "$newtoken") where driver = 'AliyundriveShare';
+EOF
+

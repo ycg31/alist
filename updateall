@@ -1,0 +1,68 @@
+#!/bin/sh
+cd /tmp/
+
+if [ -f index.zip ]; then
+	rm index.zip
+fi
+
+if [ -f index.txt ]; then
+        rm index.txt 
+fi
+
+if [ -f version.txt ]; then
+	rm version.txt
+fi
+
+wget -T 5 -t 2 -q http://docker.xiaoya.pro/version.txt
+if [ ! -f version.txt ]; then
+        echo "Failed to download version.txt file, the index file upgrade process has aborted"
+else	
+	remote=$(head -n1 version.txt)
+        if [ ! -f /version.txt ]; then
+                echo 0.0.0 > /version.txt
+        fi
+        local=$(head -n1 /version.txt)
+        latest=$(printf "$remote\n$local\n" |sort -r |head -n1)
+        if [ $remote = $local ]; then
+                echo `date` "current index file version is updated, no need to upgrade"
+                exit
+        elif [ $remote = $latest ]; then
+		wget -T 5 -t 2 -q http://docker.xiaoya.pro/index.zip
+		if [ ! -f index.zip ]; then
+			echo "Failed to download index compressed file, the index file upgrade process has aborted"
+			exit
+		else
+			unzip -o -q -P abcd index.zip
+			mv index*.txt /
+			echo `date` "update index succesfully, your new version.txt is" $remote
+			echo $remote > /version.txt
+		fi
+		
+		wget -T 5 -t 2 -q http://docker.xiaoya.pro/update.zip
+		if [ ! -f update.zip ]; then
+                        echo "Failed to download update database file, the database upgrade process has aborted"
+                        exit
+                else
+                        unzip -o -q -P abcd update.zip
+                        entries=$(expr `cat update.sql|wc -l` - 4)
+                        echo `date` "total" $entries "records"
+                        sqlite3 /opt/alist/data/data.db <<EOF
+drop table x_storages;
+drop table x_meta;
+drop table x_setting_items;
+.read update.sql
+EOF
+                        echo `date` "update database succesfully, your new version is" $remote
+                fi
+		
+	else
+		echo `date` "your current version.txt is updated, no need to downgrade"
+		echo $remote > /version.txt
+	fi
+	rm index.*
+	rm update.*
+	rm version.txt
+fi
+
+exec "$@"
+
