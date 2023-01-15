@@ -53,6 +53,7 @@ English | [中文](./README_cn.md) | [Contributing](./CONTRIBUTING.md) | [CODE_O
     - [x] FTP / SFTP
     - [x] [PikPak](https://www.mypikpak.com/)
     - [x] [S3](https://aws.amazon.com/s3/)
+    - [x] [Seafile](https://seafile.com/)
     - [x] [UPYUN Storage Service](https://www.upyun.com/products/file-storage)
     - [x] WebDav(Support OneDrive/SharePoint without API)
     - [x] Teambition([China](https://www.teambition.com/ ),[International](https://us.teambition.com/ ))
@@ -60,6 +61,7 @@ English | [中文](./README_cn.md) | [Contributing](./CONTRIBUTING.md) | [CODE_O
     - [x] [139yun](https://yun.139.com/) (Personal, Family)
     - [x] [YandexDisk](https://disk.yandex.com/)
     - [x] [BaiduNetdisk](http://pan.baidu.com/)
+    - [x] [Terabox](https://www.terabox.com/main)
     - [x] [Quark](https://pan.quark.cn)
     - [x] [Thunder](https://pan.xunlei.com)
     - [x] [Lanzou](https://www.lanzou.com/)
@@ -69,6 +71,7 @@ English | [中文](./README_cn.md) | [Contributing](./CONTRIBUTING.md) | [CODE_O
     - [x] [Baidu photo](https://photo.baidu.com/)
     - [x] SMB
     - [x] [115](https://115.com/)
+    - [X] Cloudreve
 - [x] Easy to deploy and out-of-the-box
 - [x] File preview (PDF, markdown, code, plain text, ...)
 - [x] Image preview in gallery mode
